@@ -14,6 +14,7 @@ def get_cubes(line, color):
 
 with open("input.txt", "r") as input_file:
     for id, line in enumerate(input_file.readlines(), start=1):
+        # PART 1
         line_possible = True
         sets = line.split(":")[1].split(";")
         for set in sets:
@@ -31,5 +32,22 @@ with open("input.txt", "r") as input_file:
                 break
         if line_possible:     
             result += id
+        
+        # PART 2
+        min_red_cubes = min_green_cubes = min_blue_cubes = 0
+        sets = line.split(":")[1].split(";")
+        
+        for set in sets:
+            red_cubes = get_cubes(set, "red")
+            if red_cubes > min_red_cubes:
+                min_red_cubes = red_cubes
+            green_cubes = get_cubes(set, "green")
+            if green_cubes > min_green_cubes:
+                min_green_cubes = green_cubes
+            blue_cubes = get_cubes(set, "blue")
+            if blue_cubes > min_blue_cubes:
+                min_blue_cubes = blue_cubes
+        power = min_red_cubes * min_green_cubes * min_blue_cubes
+        result += power
         
 print(result)
